@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Form</title>
+    <!-- Optional: Bootstrap for styling -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <h2>Save a Pokémon</h2>
+    <form action="http://localhost:8080/api/Pokemon/new" method="POST" th:object="${pokemon}">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type1">Type 1:</label>
+            <input type="text" class="form-control" id="type1" th:field="*{type1}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type2">Type 2:</label>
+            <input type="text" class="form-control" id="type2" th:field="*{type2}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

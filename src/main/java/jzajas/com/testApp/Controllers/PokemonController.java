@@ -1,16 +1,18 @@
 package jzajas.com.testApp.Controllers;
 
-
-import jakarta.validation.Valid;
-import jzajas.com.testApp.Models.PokemonModel;
 import jzajas.com.testApp.Services.PokemonService;
-import org.springframework.http.ResponseEntity;
+import jzajas.com.testApp.Models.PokemonModel;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import lombok.Builder;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/api/Pokemon")
+@Controller
+@RequestMapping("/api/pokemon")
 public class PokemonController {
 
     private final PokemonService pokemonService;
@@ -20,9 +22,28 @@ public class PokemonController {
     }
 
 
+//    @PostMapping("/save")
+//    public PokemonModel addPokemon(@Valid @RequestBody PokemonModel pokemonModel) {
+//        return pokemonService.savePokemon(pokemonModel);
+//    }
+
+//    @PostMapping("/new")
+//    public ResponseEntity<PokemonModel> createPokemon(@ModelAttribute PokemonModel pokemon) {
+//        PokemonModel savedPokemon = pokemonService.savePokemon(pokemon);
+//        return ResponseEntity.ok(savedPokemon);
+//    }
+
+    @GetMapping("/new")
+    public String showForm(Model model) {
+        // Add an empty PokemonModel to the model so the form can bind to it
+        model.addAttribute("pokemon", PokemonModel.builder().build());
+        return "PokemonForm"; // The name of your HTML form view (e.g. pokemon_form.html)
+    }
+
     @PostMapping("/save")
-    public PokemonModel addPokemon(@Valid @RequestBody PokemonModel pokemonModel) {
-        return pokemonService.savePokemon(pokemonModel);
+    public String savePokemon(@ModelAttribute PokemonModel pokemon) {
+        pokemonService.savePokemon(pokemon);
+        return "redirect:/pokemon/new"; // Redirect to the form after saving
     }
 
     @GetMapping
